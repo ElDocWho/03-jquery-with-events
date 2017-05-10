@@ -103,11 +103,11 @@ articleView.handleMainNav = function() {
   //       data available to you on the .tab element that was clicked.
 
   $('.main-nav .tab:first').on('click', function() {
-  var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
-  $('.tab-content').hide()
+    var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
+    $('.tab-content').hide()
   //we want $('#delegation')
-  $('#' + $whereToGo).fadeIn(350)
-});
+    $('#' + $whereToGo).fadeIn(350)
+  });
 };
 
 articleView.setTeasers = function() {
@@ -118,12 +118,18 @@ articleView.setTeasers = function() {
   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
   //       process any .read-on clicks that happen within child nodes.
-
+  $('.read-on').on('click', function() {
+    $('.read-on').hide();
+    $('.article-body *:nth-of-type(n+2)').show();
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
-
+  });
 };
 
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
-
+  articleView.populateFilters();
+  articleView.handleAuthorFilter();
+  articleView.handleCategoryFilter();
+  articleView.handleMainNav();
+  articleView.setTeasers();
 })

@@ -40,18 +40,16 @@ articleView.handleAuthorFilter = function() {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
-      $('.template').on('click', function() {
-        var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
-        $('.tab-content').hide()
-        //we want $('#delegation')
-        $('#' + $whereToGo).fadeIn(350)
-      })
+      var $data = $(this).val();
+      $('article').hide()
+      $('article[data-author="' + $data + '"]').fadeIn(350)
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-      $('.tab-content').show();
+      $('#author-filter').val('');
+      $('article').show();
+      $('.template').hide();
     }
-    $('#category-filter').val('');
   });
 };
 
@@ -62,39 +60,18 @@ articleView.handleCategoryFilter = function() {
   //       Be sure to reset the #author-filter while you are at it!
   $('#category-filter').on('change', function() {
     if ($(this).val()) {
-      $('.template').on('click', function() {
-        var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
-        $('.tab-content').hide()
-        //we want $('#delegation')
-        $('#' + $whereToGo).fadeIn(350)
-      })
+      var $data = $(this).val();
+      $('article').hide()
+      $('article[data-category="' + $data + '"]').fadeIn(350)
     } else {
-      $('.tab-content').show();
+      console.log('no category');
+      $('#category-filter').val('');
+      $('article').show();
+      $('.template').hide();
     }
     $('#category-filter').val('');
   });
 };
-$('#category-filter').on('change', function() {
-  // REVIEW: Inside this function, "this" is the element that triggered the event handler function we're
-  //         defining. "$(this)" is using jQuery to select that element, so we can chain jQuery methods
-  //         onto it.
-  if ($(this).val()) {
-    // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
-    //       and then show just the ones that match for the author that was selected.
-    //       Use an "attribute selector" to find those articles, and fade them in for the reader.
-    $('.template').on('click', function() {
-      var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
-      $('.tab-content').hide()
-      //we want $('#delegation')
-      $('#' + $whereToGo).fadeIn(350)
-    })
-  } else {
-    // TODO: If the select box was changed to an option that is blank, we should
-    //       show all the articles, except the one article we are using as a template.
-    $('.tab-content').show();
-  }
-  $('#category-filter').val('');
-});
 articleView.handleMainNav = function() {
   // TODO: Add an event handler to .main-nav elements that will power the Tabs feature.
   //       Clicking any .tab element should hide all the .tab-content sections, and then reveal the
@@ -102,12 +79,22 @@ articleView.handleMainNav = function() {
   //       So: You need to dynamically build a selector string with the correct ID, based on the
   //       data available to you on the .tab element that was clicked.
 
+
   $('.main-nav .tab:first').on('click', function() {
-  var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
-  $('.tab-content').hide()
+    var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
+    $('.tab-content').hide()
   //we want $('#delegation')
-  $('#' + $whereToGo).fadeIn(350)
- })
+    $('#' + $whereToGo).fadeIn(350)
+  })
+
+  $('.tab').on('click', function() {
+    var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
+    $('.tab-content').hide()
+  //we want $('#delegation')
+    console.log($whereToGo);
+    $('#' + $whereToGo).fadeIn(450)
+  })
+
 };
 
 articleView.setTeasers = function() {

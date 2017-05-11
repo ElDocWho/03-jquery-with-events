@@ -43,11 +43,12 @@ articleView.handleAuthorFilter = function() {
       var $data = $(this).val();
       $('article').hide()
       $('article[data-author="' + $data + '"]').fadeIn(350)
-      // z$(this).data($whereToGo).fadeIn(350);
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-      $('#category-filter').val('');
+      $('#author-filter').val('');
+      $('article').show();
+      $('.template').hide();
     }
   });
 };
@@ -63,7 +64,10 @@ articleView.handleCategoryFilter = function() {
       $('article').hide()
       $('article[data-category="' + $data + '"]').fadeIn(350)
     } else {
-      $('.tab-content').show();
+      console.log('no category');
+      $('#category-filter').val('');
+      $('article').show();
+      $('.template').hide();
     }
     $('#category-filter').val('');
   });
@@ -81,7 +85,7 @@ articleView.handleMainNav = function() {
   //we want $('#delegation')
     console.log($whereToGo);
     $('#' + $whereToGo).fadeIn(450)
-  });
+  })
 };
 
 articleView.setTeasers = function() {

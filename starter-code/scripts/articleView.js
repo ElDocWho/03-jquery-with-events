@@ -40,15 +40,15 @@ articleView.handleAuthorFilter = function() {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
-      var $data = $(this).val();
       $('article').hide()
-      $('article[data-author="' + $data + '"]').fadeIn(350)
+      $('article[data-author="' + $(this).val() + '"]').fadeIn(350)
+      $('#about').hide();
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-      $('#author-filter').val('');
       $('article').show();
       $('.template').hide();
+      $('#about').hide();
     }
   });
 };
@@ -60,16 +60,15 @@ articleView.handleCategoryFilter = function() {
   //       Be sure to reset the #author-filter while you are at it!
   $('#category-filter').on('change', function() {
     if ($(this).val()) {
-      var $data = $(this).val();
       $('article').hide()
-      $('article[data-category="' + $data + '"]').fadeIn(350)
+      $('article[data-category="' + $(this).val() + '"]').fadeIn(350)
     } else {
-      console.log('no category');
       $('#category-filter').val('');
       $('article').show();
       $('.template').hide();
     }
     $('#category-filter').val('');
+    $('#author-filter').val('');
   });
 };
 articleView.handleMainNav = function() {
@@ -83,25 +82,18 @@ articleView.handleMainNav = function() {
     var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
     $('.tab-content').hide()
   //we want $('#delegation')
-    console.log($whereToGo);
     $('#' + $whereToGo).fadeIn(450)
   })
 };
 
-// articleView.setTeasers = function() {
-//   $('.article-body *:nth-of-type(n+2)').hide(); // Hide elements beyond the first 2 in any article body.
-//
-//   // TODO: Add an event handler to reveal all the hidden elements,
-//   //       when the .read-on link is clicked. You can go ahead and hide the
-//   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
-//   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
-//   //       process any .read-on clicks that happen within child nodes.
-//   $('.read-on').on('click', function() {
-//     $('.read-on').hide();
-//     $('.article-body *:nth-of-type(n+2)').show();
-//   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
-//   });
-// };
+  // TODO: Add an event handler to reveal all the hidden elements,
+  //       when the .read-on link is clicked. You can go ahead and hide the
+  //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
+  //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
+  //       process any .read-on clicks that happen within child nodes.
+
+  // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
+
 
 articleView.setTeasers = function() {
   $('.article-body *:nth-of-type(n+2)').hide();

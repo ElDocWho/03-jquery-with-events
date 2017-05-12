@@ -40,13 +40,11 @@ articleView.handleAuthorFilter = function() {
       // TODO: If the select box was changed to an option that has a value, we need to hide all the articles,
       //       and then show just the ones that match for the author that was selected.
       //       Use an "attribute selector" to find those articles, and fade them in for the reader.
-      var $data = $(this).val();
       $('article').hide()
-      $('article[data-author="' + $data + '"]').fadeIn(350)
+      $('article[data-author="' + $(this).val() + '"]').fadeIn(350)
     } else {
       // TODO: If the select box was changed to an option that is blank, we should
       //       show all the articles, except the one article we are using as a template.
-      $('#author-filter').val('');
       $('article').show();
       $('.template').hide();
     }
@@ -60,16 +58,14 @@ articleView.handleCategoryFilter = function() {
   //       Be sure to reset the #author-filter while you are at it!
   $('#category-filter').on('change', function() {
     if ($(this).val()) {
-      var $data = $(this).val();
       $('article').hide()
-      $('article[data-category="' + $data + '"]').fadeIn(350)
+      $('article[data-category="' + $(this).val() + '"]').fadeIn(350)
     } else {
-      console.log('no category');
-      $('#category-filter').val('');
       $('article').show();
       $('.template').hide();
     }
     $('#category-filter').val('');
+    $('#autor-filter').val('');
   });
 };
 articleView.handleMainNav = function() {
@@ -83,7 +79,6 @@ articleView.handleMainNav = function() {
     var $whereToGo = $(this).data('content') //gives us 'delegation' or 'attributes'
     $('.tab-content').hide()
   //we want $('#delegation')
-    console.log($whereToGo);
     $('#' + $whereToGo).fadeIn(450)
   })
 };

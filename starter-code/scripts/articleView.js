@@ -97,8 +97,21 @@ articleView.handleMainNav = function() {
 
 };
 
-articleView.setTeasers = function() {
-  $('.article-body *:nth-of-type(n+2)').hide(); // Hide elements beyond the first 2 in any article body.
+// articleView.setTeasers = function() {
+//   $('.article-body *:nth-of-type(n+2)').hide(); // Hide elements beyond the first 2 in any article body.
+//
+//   // TODO: Add an event handler to reveal all the hidden elements,
+//   //       when the .read-on link is clicked. You can go ahead and hide the
+//   //       "Read On" link once it has been clicked. Be sure to prevent the default link-click action!
+//   //       Ideally, we'd attach this as just 1 event handler on the #articles section, and let it
+//   //       process any .read-on clicks that happen within child nodes.
+//   $('.read-on').on('click', function() {
+//     $('.read-on').hide();
+//     $('.article-body *:nth-of-type(n+2)').show();
+//   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
+//   });
+// };
+
 
   // TODO: Add an event handler to reveal all the hidden elements,
   //       when the .read-on link is clicked. You can go ahead and hide the
@@ -108,8 +121,24 @@ articleView.setTeasers = function() {
 
   // STRETCH GOAl!: change the 'Read On' link to 'Show Less'
 
-};
 
+articleView.setTeasers = function() {
+  $('.article-body *:nth-of-type(n+2)').hide();
+  $('article').on('click', 'a.read-on', function(e) {
+    e.preventDefault();
+    if ($(this).text() === 'Read on →') {
+      $(this).parent().find('*').fadeIn();
+      $(this).html('Show Less &larr;');
+    } else {
+      $('body').animate({
+        scrollTop: ($(this).parent().offset().top)
+      },200);
+      $(this).html('Read on &rarr;');
+      $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
+    }
+  });
+
+};
 // TODO: Call all of the above functions, once we are sure the DOM is ready.
 $(document).ready(function() {
 
